@@ -5,10 +5,11 @@ std::shared_ptr<spdlog::logger> Log::sHousewifeLogger;
 std::shared_ptr<spdlog::logger> Log::sDoctorLogger;
 std::shared_ptr<spdlog::logger> Log::sTellerLogger;
 std::shared_ptr<spdlog::logger> Log::sBarkeeperLogger;
+std::shared_ptr<spdlog::logger> Log::sDefaultLogger;
 
 void Log::Init()
 {
-	spdlog::set_pattern("%^[%T] %n: %v%$");
+	spdlog::set_pattern("%^%n: %v%$");
 	sMinerLogger = spdlog::stdout_color_mt("광부 밥");
 	sMinerLogger->set_level(spdlog::level::trace);
 
@@ -23,4 +24,8 @@ void Log::Init()
 
 	sBarkeeperLogger = spdlog::stdout_color_mt("술집주인 존");
 	sBarkeeperLogger->set_level(spdlog::level::trace);
+
+	sDefaultLogger = spdlog::stdout_color_mt("어플리케이션");
+	sDefaultLogger->set_level(spdlog::level::trace);
+	sDefaultLogger->set_pattern("%^%n: %v%$");
 }
