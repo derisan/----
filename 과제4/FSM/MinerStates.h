@@ -12,6 +12,7 @@ public:
 	virtual void Enter(Miner* miner) override;
 	virtual void Execute(Miner* miner) override;
 	virtual void Exit(Miner* miner) override;
+	virtual bool OnMessage(Miner* miner, const Telegram& msg) override;
 
 	EnterMineAndDigForNugget(const EnterMineAndDigForNugget&) = delete;
 	EnterMineAndDigForNugget& operator=(const EnterMineAndDigForNugget&) = delete;
@@ -28,6 +29,7 @@ public:
 	virtual void Enter(Miner* miner) override;
 	virtual void Execute(Miner* miner) override;
 	virtual void Exit(Miner* miner) override;
+	virtual bool OnMessage(Miner* miner, const Telegram& msg) override;
 
 	VisitBankAndDepositGold(const VisitBankAndDepositGold&) = delete;
 	VisitBankAndDepositGold& operator=(const VisitBankAndDepositGold&) = delete;
@@ -44,6 +46,7 @@ public:
 	virtual void Enter(Miner* miner) override;
 	virtual void Execute(Miner* miner) override;
 	virtual void Exit(Miner* miner) override;
+	virtual bool OnMessage(Miner* miner, const Telegram& msg) override;
 
 	GoHomeAndSleepTillRested(const GoHomeAndSleepTillRested&) = delete;
 	GoHomeAndSleepTillRested& operator=(const GoHomeAndSleepTillRested&) = delete;
@@ -60,10 +63,28 @@ public:
 	virtual void Enter(Miner* miner) override;
 	virtual void Execute(Miner* miner) override;
 	virtual void Exit(Miner* miner) override;
+	virtual bool OnMessage(Miner* miner, const Telegram& msg) override;
 
 	QuenchThirst(const QuenchThirst&) = delete;
 	QuenchThirst& operator=(const QuenchThirst&) = delete;
 
 private:
 	QuenchThirst() = default;
+};
+
+class EatStew : public State<Miner>
+{
+public:
+	static EatStew* Instance();
+
+	virtual void Enter(Miner* miner) override;
+	virtual void Execute(Miner* miner) override;
+	virtual void Exit(Miner* miner) override;
+	virtual bool OnMessage(Miner* miner, const Telegram& msg) override;
+
+	EatStew(const EatStew&) = delete;
+	EatStew& operator=(const EatStew&) = delete;
+
+private:
+	EatStew() = default;
 };

@@ -1,20 +1,25 @@
+#include <iostream>
+
 #include "Log.h"
 #include "Random.h"
-#include "Miner.h"
-#include "Housewife.h"
+#include "CrudeTimer.h"
+#include "EntityManager.h"
+#include "MessageDispatcher.h"
 
 int main()
 {
 	Log::Init();
 	Random::Init();
 
-	Miner miner(eEntityID::MinerBob);
-	Housewife wife(eEntityID::HousewifeElsa);
+	EntityMgr->CreateEntity(eEntityID::MinerBob);
+	EntityMgr->CreateEntity(eEntityID::HousewifeElsa);
 
 	for (int i = 0; i < 20; i++)
 	{
-		miner.Update();
-		wife.Update();
+		std::cout << "------Tick : " << i + 1 << "------" << std::endl;
+		Timer->Update();
+		EntityMgr->Update();
+		Dispatcher->DispatchDelayedMessage();
 
 		Sleep(800);
 	}

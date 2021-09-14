@@ -1,7 +1,11 @@
 #include "MinerStates.h"
 
+#include "CrudeTimer.h"
 #include "Log.h"
 #include "Miner.h"
+#include "MessageTypes.h"
+#include "EntityManager.h"
+#include "MessageDispatcher.h"
 
 EnterMineAndDigForNugget* EnterMineAndDigForNugget::Instance()
 {
@@ -38,6 +42,11 @@ void EnterMineAndDigForNugget::Execute(Miner* miner)
 void EnterMineAndDigForNugget::Exit(Miner* miner)
 {
 	MINER_LOG("금광을 떠난다.");
+}
+
+bool EnterMineAndDigForNugget::OnMessage(Miner* miner, const Telegram& msg)
+{
+	return false;
 }
 
 VisitBankAndDepositGold* VisitBankAndDepositGold::Instance()
@@ -79,6 +88,11 @@ void VisitBankAndDepositGold::Exit(Miner* miner)
 	MINER_LOG("은행을 떠난다.");
 }
 
+bool VisitBankAndDepositGold::OnMessage(Miner* miner, const Telegram& msg)
+{
+	return false;
+}
+
 GoHomeAndSleepTillRested* GoHomeAndSleepTillRested::Instance()
 {
 	static GoHomeAndSleepTillRested instance;
@@ -90,7 +104,11 @@ void GoHomeAndSleepTillRested::Enter(Miner* miner)
 	if (miner->GetLocation() != eLocation::Shack)
 	{
 		miner->SetLocation(eLocation::Shack);
-		MINER_LOG("집으로 걸어간다.");
+		
+		Dispatcher->DispatchMessageEx(0.0f,
+			miner->GetID(),
+			eEntityID::HousewifeElsa,
+			MsgHiHoneyImHome);
 	}
 }
 
@@ -98,7 +116,7 @@ void GoHomeAndSleepTillRested::Execute(Miner* miner)
 {
 	if (!miner->IsFatigued())
 	{
-		MINER_LOG("정말 환상적인 낮잠이었구나! 금을 더 캐야 할 시간이다.");
+		MINER_LOG("피곤이 싹 달아나 버렸네! 금을 더 캐야 할 시간이다.");
 		miner->GetFSM()->ChangeState(EnterMineAndDigForNugget::Instance());
 	}
 	else
@@ -110,7 +128,26 @@ void GoHomeAndSleepTillRested::Execute(Miner* miner)
 
 void GoHomeAndSleepTillRested::Exit(Miner* miner)
 {
-	MINER_LOG("집을 떠난다.");
+	
+}
+
+bool GoHomeAndSleepTillRested::OnMessage(Miner* miner, const Telegram& msg)
+{
+	switch (msg.Msg)
+	{
+	case MsgStewReady:
+		LOG("{0}이(가) 시간({1})에 수신한 메시지",
+			EntityMgr->GetNameOfEntity(msg.Receiver),
+			Timer->GetCurrentTime());
+
+		MINER_LOG("좋아요 여보, 내 곧 가리다!");
+		miner->GetFSM()->ChangeState(EatStew::Instance());
+
+		return true;
+
+	default:
+		return false;
+	}
 }
 
 QuenchThirst* QuenchThirst::Instance()
@@ -146,4 +183,36 @@ void QuenchThirst::Execute(Miner* miner)
 void QuenchThirst::Exit(Miner* miner)
 {
 	MINER_LOG("술집을 떠난다. 기분도 좋다.");
+}
+
+bool QuenchThirst::OnMessage(Miner* miner, const Telegram& msg)
+{
+	return false;
+}
+
+EatStew* EatStew::Instance()
+{
+	static EatStew instance;
+	return &instance;
+}
+
+void EatStew::Enter(Miner* miner)
+{
+	MINER_LOG("냄새 정말 좋구려, {0}", EntityMgr->GetNameOfEntity(eEntityID::HousewifeElsa));
+}
+
+void EatStew::Execute(Miner* miner)
+{
+	MINER_LOG("맛도 정말 좋군!");
+	miner->GetFSM()->RevertToPreviousState();
+}
+
+void EatStew::Exit(Miner* miner)
+{
+	MINER_LOG("고마워 여보. 하던 일을 다시 하는 것이 좋겠군.");
+}
+
+bool EatStew::OnMessage(Miner* miner, const Telegram& msg)
+{
+	return false;
 }

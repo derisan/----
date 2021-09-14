@@ -1,5 +1,10 @@
 #pragma once
 
+#include <string>
+#include <cassert>
+
+#include "Telegram.h"
+
 enum eEntityID
 {
 	MinerBob,
@@ -25,6 +30,7 @@ public:
 	virtual ~BaseEntity() = default;
 
 	virtual void Update() = 0;
+	virtual bool IsMessageHandled(const Telegram& telegram) = 0;
 
 	int GetID() const { return mID; }
 	void SetID(int id) { mID = id; }

@@ -10,9 +10,15 @@ public:
 	virtual ~Housewife();
 
 	virtual void Update() override;
+	virtual bool IsMessageHandled(const Telegram& telegram) override;
 
 	StateMachine<Housewife>* GetFSM() const { return mStateMachine; }
 
+	bool IsCooking() const { return bIsCooking; }
+	void SetCooking(bool val) { bIsCooking = val; }
+
 private:
 	StateMachine<Housewife>* mStateMachine;
+
+	bool bIsCooking;
 };

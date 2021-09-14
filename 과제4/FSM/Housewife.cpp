@@ -5,6 +5,7 @@
 
 Housewife::Housewife(int id)
 	: BaseEntity(id)
+	, bIsCooking(false)
 {
 	SetLocation(eLocation::Shack);
 	mStateMachine = new StateMachine<Housewife>(this);
@@ -23,4 +24,9 @@ Housewife::~Housewife()
 void Housewife::Update()
 {
 	mStateMachine->Update();
+}
+
+bool Housewife::IsMessageHandled(const Telegram& telegram)
+{
+	return mStateMachine->IsMessageHandled(telegram);
 }

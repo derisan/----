@@ -1,6 +1,7 @@
 #pragma once
 
 #include "State.h"
+#include "Telegram.h"
 
 template<typename T>
 class StateMachine
@@ -45,6 +46,21 @@ public:
 	bool IsInState(const State<T>& state) const
 	{
 		return typeid(*mCurrentState) == typeid(state);
+	}
+
+	bool IsMessageHandled(const Telegram& telegram)
+	{
+		if (mCurrentState && mCurrentState->OnMessage(mOwner, telegram))
+		{
+			return true;
+		}
+
+		if (mGlobalState && mGlobalState->OnMessage(mOwner, telegram))
+		{
+			return true;
+		}
+
+		return false;
 	}
 
 private:

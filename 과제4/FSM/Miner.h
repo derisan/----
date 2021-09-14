@@ -12,6 +12,8 @@ public:
 
 	virtual void Update() override;
 
+	virtual bool IsMessageHandled(const Telegram& telegram) override;
+
 	int GetGoldCarried() const { return mGoldCarried; }
 	void SetGoldCarried(int val) {	mGoldCarried = val; }
 	void AddToGoldCarried(int val);
