@@ -5,6 +5,12 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Source Files\Entity">
+      <UniqueIdentifier>{bb7d074c-b56d-49c7-bf51-c25186f24194}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\State">
+      <UniqueIdentifier>{1590a40a-e79f-43e1-920b-cf76a77979c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Log.cpp">
@@ -13,13 +19,22 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Miner.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BaseEntity.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Housewife.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Miner.cpp">
+      <Filter>Source Files\Entity</Filter>
     </ClCompile>
     <ClCompile Include="MinerStates.cpp">
+      <Filter>Source Files\State</Filter>
+    </ClCompile>
+    <ClCompile Include="HousewifeStates.cpp">
+      <Filter>Source Files\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -27,19 +42,28 @@
     <ClInclude Include="Log.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Miner.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="BaseEntity.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="Miner.h">
+      <Filter>Source Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Housewife.h">
+      <Filter>Source Files\Entity</Filter>
     </ClInclude>
     <ClInclude Include="MinerStates.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\State</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Source Files\State</Filter>
     </ClInclude>
     <ClInclude Include="StateMachine.h">
+      <Filter>Source Files\State</Filter>
+    </ClInclude>
+    <ClInclude Include="HousewifeStates.h">
+      <Filter>Source Files\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

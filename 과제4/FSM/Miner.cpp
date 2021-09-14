@@ -5,12 +5,12 @@
 
 Miner::Miner(int id)
 	: BaseEntity(id)
-	, mLocation(eLocation::Shack)
 	, mGoldCarried(0)
 	, mMoneyInBank(0)
 	, mThirst(0)
 	, mFatigue(0)
 {
+	SetLocation(eLocation::Shack);
 	mStateMachine = new StateMachine<Miner>(this);
 	mStateMachine->SetCurrentState(EnterMineAndDigForNugget::Instance());
 }

@@ -29,6 +29,10 @@ public:
 	int GetID() const { return mID; }
 	void SetID(int id) { mID = id; }
 
+	eLocation GetLocation() const { return mLocation; }
+	void SetLocation(eLocation location) { mLocation = location; }
+
 private:
 	int mID;
+	eLocation mLocation;
 };

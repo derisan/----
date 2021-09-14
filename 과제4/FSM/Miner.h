@@ -12,9 +12,6 @@ public:
 
 	virtual void Update() override;
 
-	eLocation GetLocation() const { return mLocation; }
-	void SetLocation(eLocation loc) { mLocation = loc; }
-
 	int GetGoldCarried() const { return mGoldCarried; }
 	void SetGoldCarried(int val) {	mGoldCarried = val; }
 	void AddToGoldCarried(int val);
@@ -41,8 +38,6 @@ private:
 	const int kTirednessThreshold = 5;
 
 	StateMachine<Miner>* mStateMachine;
-
-	eLocation mLocation;
 
 	int mGoldCarried;
 	int mMoneyInBank;
