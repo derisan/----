@@ -19,7 +19,7 @@
     <ClCompile Include="BaseEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="States.cpp">
+    <ClCompile Include="MinerStates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -33,7 +33,13 @@
     <ClInclude Include="BaseEntity.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="States.h">
+    <ClInclude Include="State.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MinerStates.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

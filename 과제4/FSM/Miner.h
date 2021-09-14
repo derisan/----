@@ -1,9 +1,8 @@
 #pragma once
 
 #include "BaseEntity.h"
+#include "StateMachine.h"
 
-
-class State;
 
 class Miner : public BaseEntity
 {
@@ -12,8 +11,6 @@ public:
 	virtual ~Miner();
 
 	virtual void Update() override;
-
-	void ChangeState(State* newState);
 
 	eLocation GetLocation() const { return mLocation; }
 	void SetLocation(eLocation loc) { mLocation = loc; }
@@ -35,6 +32,7 @@ public:
 	void IncreaseFatigue() { mFatigue++; }
 	bool IsFatigued() const { return mFatigue > kTirednessThreshold; }
 
+	StateMachine<Miner>* GetFSM() const { return mStateMachine; }
 
 private:
 	const int kComfortLevel = 5;
@@ -42,7 +40,7 @@ private:
 	const int kThirstLevel = 5;
 	const int kTirednessThreshold = 5;
 
-	State* mCurrentState;
+	StateMachine<Miner>* mStateMachine;
 
 	eLocation mLocation;
 

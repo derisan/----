@@ -1,4 +1,4 @@
-#include "States.h"
+#include "MinerStates.h"
 
 #include "Log.h"
 #include "Miner.h"
@@ -26,12 +26,12 @@ void EnterMineAndDigForNugget::Execute(Miner* miner)
 
 	if (miner->IsPocketsFull())
 	{
-		miner->ChangeState(VisitBankAndDepositGold::Instance());
+		miner->GetFSM()->ChangeState(VisitBankAndDepositGold::Instance());
 	}
 
 	else if (miner->IsThirsty())
 	{
-		miner->ChangeState(QuenchThirst::Instance());
+		miner->GetFSM()->ChangeState(QuenchThirst::Instance());
 	}
 }
 
@@ -66,11 +66,11 @@ void VisitBankAndDepositGold::Execute(Miner* miner)
 	if (miner->IsWealthy())
 	{
 		MINER_LOG("우효! 이제 충분히 부자가 되었다. 나의 귀여운 아내에게로 돌아가자.");
-		miner->ChangeState(GoHomeAndSleepTillRested::Instance());
+		miner->GetFSM()->ChangeState(GoHomeAndSleepTillRested::Instance());
 	}
 	else
 	{
-		miner->ChangeState(EnterMineAndDigForNugget::Instance());
+		miner->GetFSM()->ChangeState(EnterMineAndDigForNugget::Instance());
 	}
 }
 
@@ -99,7 +99,7 @@ void GoHomeAndSleepTillRested::Execute(Miner* miner)
 	if (!miner->IsFatigued())
 	{
 		MINER_LOG("정말 환상적인 낮잠이었구나! 금을 더 캐야 할 시간이다.");
-		miner->ChangeState(EnterMineAndDigForNugget::Instance());
+		miner->GetFSM()->ChangeState(EnterMineAndDigForNugget::Instance());
 	}
 	else
 	{
@@ -134,7 +134,7 @@ void QuenchThirst::Execute(Miner* miner)
 	{
 		miner->BuyAndDrinkWhiskey();
 		MINER_LOG("저게 홀짝홀짝 마시기에 대단히 좋은 술이군.");
-		miner->ChangeState(EnterMineAndDigForNugget::Instance());
+		miner->GetFSM()->ChangeState(EnterMineAndDigForNugget::Instance());
 	}
 
 	else

@@ -1,7 +1,7 @@
 #include <cassert>
 
 #include "Miner.h"
-#include "States.h"
+#include "MinerStates.h"
 
 Miner::Miner(int id)
 	: BaseEntity(id)
@@ -11,31 +11,23 @@ Miner::Miner(int id)
 	, mThirst(0)
 	, mFatigue(0)
 {
-	mCurrentState = EnterMineAndDigForNugget::Instance();
+	mStateMachine = new StateMachine<Miner>(this);
+	mStateMachine->SetCurrentState(EnterMineAndDigForNugget::Instance());
 }
 
 Miner::~Miner()
 {
-
+	if (mStateMachine)
+	{
+		delete mStateMachine;
+	}
 }
 
 void Miner::Update()
 {
 	mThirst++;
 
-	if (mCurrentState)
-	{
-		mCurrentState->Execute(this);
-	}
-}
-
-void Miner::ChangeState(State* newState)
-{
-	assert(mCurrentState && newState);
-
-	mCurrentState->Exit(this);
-	mCurrentState = newState;
-	mCurrentState->Enter(this);
+	mStateMachine->Update();
 }
 
 void Miner::AddToGoldCarried(int val)

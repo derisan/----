@@ -1,18 +1,10 @@
 #pragma once
 
+#include "State.h"
+
 class Miner;
 
-class State
-{
-public:
-	virtual ~State() = default;
-
-	virtual void Enter(Miner* miner) = 0;
-	virtual void Execute(Miner* miner) = 0;
-	virtual void Exit(Miner* miner) = 0;
-};
-
-class EnterMineAndDigForNugget : public State
+class EnterMineAndDigForNugget : public State<Miner>
 {
 public:
 	static EnterMineAndDigForNugget* Instance();
@@ -28,7 +20,7 @@ private:
 	EnterMineAndDigForNugget() = default;
 };
 
-class VisitBankAndDepositGold : public State
+class VisitBankAndDepositGold : public State<Miner>
 {
 public:
 	static VisitBankAndDepositGold* Instance();
@@ -44,7 +36,7 @@ private:
 	VisitBankAndDepositGold() = default;
 };
 
-class GoHomeAndSleepTillRested : public State
+class GoHomeAndSleepTillRested : public State<Miner>
 {
 public:
 	static GoHomeAndSleepTillRested* Instance();
@@ -60,7 +52,7 @@ private:
 	GoHomeAndSleepTillRested() = default;
 };
 
-class QuenchThirst : public State
+class QuenchThirst : public State<Miner>
 {
 public:
 	static QuenchThirst* Instance();
