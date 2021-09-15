@@ -90,6 +90,8 @@
   <ItemGroup>
     <ClCompile Include="BaseEntity.cpp" />
     <ClCompile Include="CrudeTimer.cpp" />
+    <ClCompile Include="Doctor.cpp" />
+    <ClCompile Include="DoctorStates.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Housewife.cpp" />
     <ClCompile Include="HousewifeStates.cpp" />
@@ -103,6 +105,8 @@
   <ItemGroup>
     <ClInclude Include="BaseEntity.h" />
     <ClInclude Include="CrudeTimer.h" />
+    <ClInclude Include="Doctor.h" />
+    <ClInclude Include="DoctorStates.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Housewife.h" />
     <ClInclude Include="HousewifeStates.h" />

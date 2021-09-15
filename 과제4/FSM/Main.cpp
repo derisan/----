@@ -13,6 +13,7 @@ int main()
 
 	EntityMgr->CreateEntity(eEntityID::MinerBob);
 	EntityMgr->CreateEntity(eEntityID::HousewifeElsa);
+	EntityMgr->CreateEntity(eEntityID::DoctorSmith);
 
 	for (int i = 0; i < 20; i++)
 	{

@@ -52,6 +52,12 @@
     <ClCompile Include="CrudeTimer.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="Doctor.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="DoctorStates.cpp">
+      <Filter>Source Files\State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseEntity.h">
@@ -95,6 +101,12 @@
     </ClInclude>
     <ClInclude Include="CrudeTimer.h">
       <Filter>Source Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Doctor.h">
+      <Filter>Source Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="DoctorStates.h">
+      <Filter>Source Files\State</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

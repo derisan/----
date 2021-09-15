@@ -4,6 +4,7 @@
 #include "EntityManager.h"
 #include "Miner.h"
 #include "Housewife.h"
+#include "Doctor.h"
 
 EntityManager* EntityManager::Instance()
 {
@@ -57,6 +58,9 @@ BaseEntity* EntityManager::CreateEntity(int id)
 		break;
 
 	case DoctorSmith:
+		entity = new Doctor(id);
+		RegisterEntity(entity);
+		return entity;
 		break;
 
 	case TellerJane:

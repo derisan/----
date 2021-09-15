@@ -7,6 +7,8 @@ enum eMessage
 {
 	MsgHiHoneyImHome,
 	MsgStewReady,
+	MsgHelpMeDoctor,
+	MsgNowYouAreOkay,
 };
 
 
@@ -19,6 +21,12 @@ inline std::string MsgToStr(int msg)
 
 	case MsgStewReady:
 		return "StewReady";
+
+	case MsgHelpMeDoctor:
+		return "HelpMeDoctor";
+
+	case MsgNowYouAreOkay:
+		return "YouAreOkay";
 
 	default:
 		assert(nullptr && "Error. Unknown message.");
