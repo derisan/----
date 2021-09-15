@@ -17,7 +17,7 @@ public:
 	static MessageDispatcher* Instance();
 
 	void DispatchMessageEx(double delay, int sender, int receiver, int msg, void* extraInfo = nullptr);
-	void DispatchDelayedMessage();
+	void Update();
 
 private:
 	MessageDispatcher() = default;

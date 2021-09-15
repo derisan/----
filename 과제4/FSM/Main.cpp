@@ -19,7 +19,7 @@ int main()
 		std::cout << "------Tick : " << i + 1 << "------" << std::endl;
 		Timer->Update();
 		EntityMgr->Update();
-		Dispatcher->DispatchDelayedMessage();
+		Dispatcher->Update();
 
 		Sleep(800);
 	}

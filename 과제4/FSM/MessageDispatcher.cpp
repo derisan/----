@@ -40,7 +40,7 @@ void MessageDispatcher::DispatchMessageEx(double delay, int sender, int receiver
 	}
 }
 
-void MessageDispatcher::DispatchDelayedMessage()
+void MessageDispatcher::Update()
 {
 	double currentTime = Timer->GetCurrentTime();
 
