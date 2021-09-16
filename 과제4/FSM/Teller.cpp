@@ -4,7 +4,8 @@
 
 Teller::Teller(int id)
 	: BaseEntity(id),
-	bIsDoingBankingWork(false)
+	bIsDoingBankingWork(false),
+	mHunger(0)
 {
 	SetLocation(eLocation::Bank);
 	mStateMachine = new StateMachine<Teller>(this);

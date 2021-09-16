@@ -64,6 +64,12 @@
     <ClCompile Include="TellerStates.cpp">
       <Filter>Source Files\State</Filter>
     </ClCompile>
+    <ClCompile Include="Barkeeper.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="BarkeeperStates.cpp">
+      <Filter>Source Files\State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseEntity.h">
@@ -118,6 +124,12 @@
       <Filter>Source Files\Entity</Filter>
     </ClInclude>
     <ClInclude Include="TellerStates.h">
+      <Filter>Source Files\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Barkeeper.h">
+      <Filter>Source Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="BarkeeperStates.h">
       <Filter>Source Files\State</Filter>
     </ClInclude>
   </ItemGroup>
