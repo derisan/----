@@ -9,6 +9,7 @@ enum eMessage
 	MsgStewReady,
 	MsgHelpMeDoctor,
 	MsgNowYouAreOkay,
+	MsgDepositComplete,
 };
 
 
@@ -27,6 +28,9 @@ inline std::string MsgToStr(int msg)
 
 	case MsgNowYouAreOkay:
 		return "YouAreOkay";
+
+	case MsgDepositComplete:
+		return "DepositComplete";
 
 	default:
 		assert(nullptr && "Error. Unknown message.");

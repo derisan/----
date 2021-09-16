@@ -58,6 +58,12 @@
     <ClCompile Include="DoctorStates.cpp">
       <Filter>Source Files\State</Filter>
     </ClCompile>
+    <ClCompile Include="Teller.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="TellerStates.cpp">
+      <Filter>Source Files\State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseEntity.h">
@@ -106,6 +112,12 @@
       <Filter>Source Files\Entity</Filter>
     </ClInclude>
     <ClInclude Include="DoctorStates.h">
+      <Filter>Source Files\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Teller.h">
+      <Filter>Source Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="TellerStates.h">
       <Filter>Source Files\State</Filter>
     </ClInclude>
   </ItemGroup>

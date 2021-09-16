@@ -1,7 +1,5 @@
 #pragma once
 
-#include <deque>
-
 #include "BaseEntity.h"
 #include "StateMachine.h"
 

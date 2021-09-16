@@ -101,6 +101,8 @@
     <ClCompile Include="Miner.cpp" />
     <ClCompile Include="MinerStates.cpp" />
     <ClCompile Include="Random.cpp" />
+    <ClCompile Include="Teller.cpp" />
+    <ClCompile Include="TellerStates.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseEntity.h" />
@@ -119,6 +121,8 @@
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="Telegram.h" />
+    <ClInclude Include="Teller.h" />
+    <ClInclude Include="TellerStates.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
