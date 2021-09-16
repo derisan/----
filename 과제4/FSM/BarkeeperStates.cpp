@@ -1,3 +1,8 @@
+// ***********************************************
+// **            ÀÎ°øÁö´É °úÁ¦4. FSM				**
+// **            2016180007±è¸í±Ô               **
+// ***********************************************
+
 #include "BarkeeperStates.h"
 
 #include "Barkeeper.h"
@@ -67,13 +72,14 @@ MakeCocktail* MakeCocktail::Instance()
 void MakeCocktail::Enter(Barkeeper* barkeeper)
 {
 	BK_LOG("¼Õ´ÔÀÌ ¿À¼Ì´Ù.");
-	barkeeper->DecreaseStock();
-	barkeeper->IncreaseGold();
 }
 
 void MakeCocktail::Execute(Barkeeper* barkeeper)
 {
 	BK_LOG("¸ÀÀÖ´Â Ä¬Å×ÀÏÀ» ¸¸µé¾ú´Ù.");
+
+	barkeeper->DecreaseStock();
+	barkeeper->IncreaseGold();
 
 	if (!barkeeper->IsLiquorEnough())
 	{
