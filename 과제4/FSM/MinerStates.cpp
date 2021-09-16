@@ -6,6 +6,7 @@
 #include "MessageTypes.h"
 #include "EntityManager.h"
 #include "MessageDispatcher.h"
+#include "Random.h"
 
 EnterMineAndDigForNugget* EnterMineAndDigForNugget::Instance()
 {
@@ -28,7 +29,12 @@ void EnterMineAndDigForNugget::Execute(Miner* miner)
 	miner->IncreaseFatigue();
 	MINER_LOG("금덩어리를 집는다.");
 
-	if (miner->IsPocketsFull())
+	if (Random::RandFloat() < 0.2f)
+	{
+		miner->GetFSM()->ChangeState(OhImSick::Instance());
+	}
+
+	else if (miner->IsPocketsFull())
 	{
 		miner->GetFSM()->ChangeState(VisitBankAndDepositGold::Instance());
 	}
@@ -215,4 +221,43 @@ void EatStew::Exit(Miner* miner)
 bool EatStew::OnMessage(Miner* miner, const Telegram& msg)
 {
 	return false;
+}
+
+OhImSick* OhImSick::Instance()
+{
+	static OhImSick instance;
+	return &instance;
+}
+
+void OhImSick::Enter(Miner* miner)
+{
+	Dispatcher->DispatchMessageEx(0, miner->GetID(), eEntityID::DoctorSmith, MsgHelpMeDoctor);
+}
+
+void OhImSick::Execute(Miner* miner)
+{
+	MINER_LOG("병원에서 진료를 받는 중이다.");
+}
+
+void OhImSick::Exit(Miner* miner)
+{
+	MINER_LOG("감사합니다. 의사 선생님!");
+}
+
+bool OhImSick::OnMessage(Miner* miner, const Telegram& msg)
+{
+	switch (msg.Msg)
+	{
+	case MsgNowYouAreOkay:
+		LOG("{0}이(가) 시간({1})에 수신한 메시지",
+			EntityMgr->GetNameOfEntity(msg.Receiver),
+			Timer->GetCurrentTime());
+
+		miner->GetFSM()->RevertToPreviousState();
+
+		return true;
+
+	default:
+		return false;
+	}
 }

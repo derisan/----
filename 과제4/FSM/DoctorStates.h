@@ -9,9 +9,9 @@ class DoctorGlobalState : public State<Doctor>
 public:
 	static DoctorGlobalState* Instance();
 
-	virtual void Enter(Doctor* doctor) override;
-	virtual void Execute(Doctor* doctor) override;
-	virtual void Exit(Doctor* doctor) override;
+	virtual void Enter(Doctor* doctor) override {};
+	virtual void Execute(Doctor* doctor) override {};
+	virtual void Exit(Doctor* doctor) override {};
 	virtual bool OnMessage(Doctor* doctor, const Telegram& msg) override;
 
 	DoctorGlobalState(const DoctorGlobalState&) = delete;

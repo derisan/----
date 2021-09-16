@@ -88,3 +88,20 @@ public:
 private:
 	EatStew() = default;
 };
+
+class OhImSick : public State<Miner>
+{
+public:
+	static OhImSick* Instance();
+
+	virtual void Enter(Miner* miner) override;
+	virtual void Execute(Miner* miner) override;
+	virtual void Exit(Miner* miner) override;
+	virtual bool OnMessage(Miner* miner, const Telegram& msg) override;
+
+	OhImSick(const OhImSick&) = delete;
+	OhImSick& operator=(const OhImSick&) = delete;
+
+private:
+	OhImSick() = default;
+};

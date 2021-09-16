@@ -13,24 +13,6 @@ DoctorGlobalState* DoctorGlobalState::Instance()
 	return &instance;
 }
 
-void DoctorGlobalState::Enter(Doctor* doctor)
-{
-
-}
-
-void DoctorGlobalState::Execute(Doctor* doctor)
-{
-	if (doctor->IsPatientWaiting())
-	{
-		doctor->GetFSM()->ChangeState(TreatPatient::Instance());
-	}
-}
-
-void DoctorGlobalState::Exit(Doctor* doctor)
-{
-
-}
-
 bool DoctorGlobalState::OnMessage(Doctor* doctor, const Telegram& msg)
 {
 	switch (msg.Msg)
@@ -40,15 +22,8 @@ bool DoctorGlobalState::OnMessage(Doctor* doctor, const Telegram& msg)
 			EntityMgr->GetNameOfEntity(msg.Receiver),
 			Timer->GetCurrentTime());
 
-		if (doctor->IsBusy())
-		{
-			DR_LOG("{0} 씨, 지금 환자를 돌보는 중이니 잠시만 기다려주십시오.", EntityMgr->GetNameOfEntity(msg.Sender));
-			doctor->AddPatient(msg.Sender);
-		}
-		else
-		{
-			doctor->GetFSM()->ChangeState(TreatPatient::Instance());
-		}
+		doctor->GetFSM()->ChangeState(TreatPatient::Instance());
+		
 		return true;
 
 	default:
@@ -64,20 +39,19 @@ TreatPatient* TreatPatient::Instance()
 
 void TreatPatient::Enter(Doctor* doctor)
 {
-	DR_LOG("{0} 씨, 진료실로 갑시다.", EntityMgr->GetNameOfEntity(doctor->GetFirstPatientID()));
+	DR_LOG("{0} 씨, 진료실로 갑시다.", EntityMgr->GetNameOfEntity(eEntityID::MinerBob));
 }
 
 void TreatPatient::Execute(Doctor* doctor)
 {
 	DR_LOG("상태가 나쁘지 않네요. 하루면 나을 겁니다.");
-	Dispatcher->DispatchMessageEx(0, doctor->GetID(), doctor->GetFirstPatientID(), MsgNowYouAreOkay);
-	doctor->RemovePatient();
+	Dispatcher->DispatchMessageEx(0, doctor->GetID(), eEntityID::MinerBob, MsgNowYouAreOkay);
 	doctor->GetFSM()->RevertToPreviousState();
 }
 
 void TreatPatient::Exit(Doctor* doctor)
 {
-	DR_LOG("수납은 접수대에 가서 해주세요. 약도 받아가시고요.");
+	DR_LOG("치료가 끝났습니다. 약도 꼭 받아가세요.");
 }
 
 bool TreatPatient::OnMessage(Doctor* doctor, const Telegram& msg)
@@ -93,7 +67,7 @@ WritePaper* WritePaper::Instance()
 
 void WritePaper::Enter(Doctor* doctor)
 {
-	DR_LOG("환자도 없으니 미뤄뒀던 논문을 써야겠군!");
+
 }
 
 void WritePaper::Execute(Doctor* doctor)
