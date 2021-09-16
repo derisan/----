@@ -88,3 +88,20 @@ public:
 private:
 	TakeLiquor() = default;
 };
+
+class TakePill : public State<Barkeeper>
+{
+public:
+	static TakePill* Instance();
+
+	virtual void Enter(Barkeeper* barkeeper) override;
+	virtual void Execute(Barkeeper* barkeeper) override;
+	virtual void Exit(Barkeeper* barkeeper) override;
+	virtual bool OnMessage(Barkeeper* barkeeper, const Telegram& msg) override;
+
+	TakePill(const TakePill&) = delete;
+	TakePill& operator=(const TakePill&) = delete;
+
+private:
+	TakePill() = default;
+};

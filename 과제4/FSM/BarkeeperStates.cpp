@@ -16,7 +16,10 @@ BarkeeperGlobalState* BarkeeperGlobalState::Instance()
 
 void BarkeeperGlobalState::Execute(Barkeeper* barkeeper)
 {
-
+	if (Random::RandFloat() < 0.1f && !barkeeper->GetFSM()->IsInState(*TakePill::Instance()))
+	{
+		barkeeper->GetFSM()->ChangeState(TakePill::Instance());
+	}
 }
 
 bool BarkeeperGlobalState::OnMessage(Barkeeper* barkeeper, const Telegram& msg)
@@ -106,22 +109,42 @@ GoBank* GoBank::Instance()
 
 void GoBank::Enter(Barkeeper* barkeeper)
 {
-
+	if (barkeeper->IsWealthy())
+	{
+		BK_LOG("많이 팔았다. 은행에 예금하러 가야겠어.");
+		
+		Dispatcher->DispatchMessageEx(0, barkeeper->GetID(), eEntityID::TellerJane, MsgIWantDeposit);
+	}
 }
 
 void GoBank::Execute(Barkeeper* barkeeper)
 {
-
+	BK_LOG("은행에 사람이 많은 걸. 조금 기다려야겠어.");
 }
 
 void GoBank::Exit(Barkeeper* barkeeper)
 {
-
+	BK_LOG("은행을 나선다.");
 }
 
 bool GoBank::OnMessage(Barkeeper* barkeeper, const Telegram& msg)
 {
-	return false;
+	switch (msg.Msg)
+	{
+	case MsgDepositComplete:
+		LOG("{0}이(가) 시간({1})에 수신한 메시지",
+			EntityMgr->GetNameOfEntity(msg.Receiver),
+			Timer->GetCurrentTime());
+
+		BK_LOG("예금이 완료되었다.");
+
+		barkeeper->GetFSM()->ChangeState(CleanUpShop::Instance());
+
+		return true;
+
+	default:
+		return false;
+	}
 }
 
 TakeLiquor* TakeLiquor::Instance()
@@ -155,6 +178,34 @@ void TakeLiquor::Exit(Barkeeper* barkeeper)
 }
 
 bool TakeLiquor::OnMessage(Barkeeper* barkeeper, const Telegram& msg)
+{
+	return false;
+}
+
+TakePill* TakePill::Instance()
+{
+	static TakePill instance;
+	return &instance;
+}
+
+void TakePill::Enter(Barkeeper* barkeeper)
+{
+	BK_LOG("남는 술을 마셨더니 머리가 아프군.");
+}
+
+void TakePill::Execute(Barkeeper* barkeeper)
+{
+	BK_LOG("숙취 해소엔 역시 상쾌환이지.");
+	
+	barkeeper->GetFSM()->RevertToPreviousState();
+}
+
+void TakePill::Exit(Barkeeper* barkeeper)
+{
+	BK_LOG("어으~ 개운해.");
+}
+
+bool TakePill::OnMessage(Barkeeper* barkeeper, const Telegram& msg)
 {
 	return false;
 }

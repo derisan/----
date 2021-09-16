@@ -31,7 +31,7 @@ private:
 	StateMachine<Barkeeper>* mStateMachine;
 
 	const int kStockLimit = 3;
-	const int kGoldLimit = 5;
+	const int kGoldLimit = 4;
 
 	int mLiquorStock;
 	int mGold;

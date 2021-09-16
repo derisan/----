@@ -24,7 +24,22 @@ void TellerGlobalState::Execute(Teller* teller)
 
 bool TellerGlobalState::OnMessage(Teller* teller, const Telegram& msg)
 {
-	return false;
+	switch (msg.Msg)
+	{
+	case MsgIWantDeposit:
+		LOG("{0}이(가) 시간({1})에 수신한 메시지",
+			EntityMgr->GetNameOfEntity(msg.Receiver),
+			Timer->GetCurrentTime());
+
+		TELLER_LOG("예금해드리겠습니다. 잠시만 기다려 주십시오, {0}님.", EntityMgr->GetNameOfEntity(msg.Sender));
+
+		Dispatcher->DispatchMessageEx(1.5, teller->GetID(), msg.Sender, MsgDepositComplete);
+
+		return true;
+
+	default:
+		return false;
+	}
 }
 
 DoBankingWork* DoBankingWork::Instance()

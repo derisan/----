@@ -11,15 +11,15 @@ int main()
 	Log::Init();
 	Random::Init();
 
-	//EntityMgr->CreateEntity(eEntityID::MinerBob);
-	//EntityMgr->CreateEntity(eEntityID::HousewifeElsa);
-	//EntityMgr->CreateEntity(eEntityID::DoctorSmith);
-	//EntityMgr->CreateEntity(eEntityID::TellerJane);
+	EntityMgr->CreateEntity(eEntityID::MinerBob);
+	EntityMgr->CreateEntity(eEntityID::HousewifeElsa);
+	EntityMgr->CreateEntity(eEntityID::DoctorSmith);
+	EntityMgr->CreateEntity(eEntityID::TellerJane);
 	EntityMgr->CreateEntity(eEntityID::BarkeeperJohn);
 
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 30; i++)
 	{
-		std::cout << "------Tick : " << i + 1 << "------" << std::endl;
+		std::cout << "\n------Tick : " << i + 1 << "------" << std::endl;
 		Timer->Update();
 		EntityMgr->Update();
 		Dispatcher->Update();
