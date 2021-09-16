@@ -112,7 +112,7 @@ void HaveTeaTime::Execute(Teller* teller)
 	{
 		TELLER_LOG("ÂÁÂÁ. °úÀÚ´Â ¸ÀÀÖ¾î. Ä¿ÇÇµµ ¸ÀÀÖ¾î.");
 		teller->SetHunger(0);
-		teller->GetFSM()->ChangeState(OrganizeDocuments::Instance());
+		teller->GetFSM()->RevertToPreviousState();
 	}
 }
 

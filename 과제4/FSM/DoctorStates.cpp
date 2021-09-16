@@ -11,6 +11,7 @@
 #include "EntityManager.h"
 #include "CrudeTimer.h"
 #include "MessageDispatcher.h"
+#include "Random.h"
 
 DoctorGlobalState* DoctorGlobalState::Instance()
 {
@@ -78,14 +79,50 @@ void WritePaper::Enter(Doctor* doctor)
 void WritePaper::Execute(Doctor* doctor)
 {
 	DR_LOG("역시 논문을 쓰는 건 흥미로워.");
+
+	if (Random::RandFloat() < 0.5f)
+	{
+		doctor->GetFSM()->ChangeState(ReadBook::Instance());
+	}
 }
 
 void WritePaper::Exit(Doctor* doctor)
 {
-	DR_LOG("환자가 왔군. 논문은 다음에 마저 써야겠어.");
+	DR_LOG("논문은 다음에 마저 써야겠어.");
 }
 
 bool WritePaper::OnMessage(Doctor* doctor, const Telegram& msg)
+{
+	return false;
+}
+
+ReadBook* ReadBook::Instance()
+{
+	static ReadBook instance;
+	return &instance;
+}
+
+void ReadBook::Enter(Doctor* doctor)
+{
+	DR_LOG("한가하니 책이나 좀 읽어볼까.");
+}
+
+void ReadBook::Execute(Doctor* doctor)
+{
+	DR_LOG("책은 흥미로워. 짜릿해. 늘 새로워.");
+
+	if (Random::RandFloat() < 0.5f)
+	{
+		doctor->GetFSM()->ChangeState(WritePaper::Instance());
+	}
+}
+
+void ReadBook::Exit(Doctor* doctor)
+{
+	DR_LOG("책은 덮어두자.");
+}
+
+bool ReadBook::OnMessage(Doctor* doctor, const Telegram& msg)
 {
 	return false;
 }
